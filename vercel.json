@@ -2,22 +2,32 @@
   "redirects": [
     {
       "source": "/kaggle-solutions",
-      "destination": "https://kaggle.farid.one",
+      "destination": "https://kaggle.farid.one/",
       "permanent": true
     },
     {
-      "source": "/kaggle-solutions/:match*",
-      "destination": "https://kaggle.farid.one/:match*",
+      "source": "/kaggle-solutions/",
+      "destination": "https://kaggle.farid.one/",
+      "permanent": true
+    },
+    {
+      "source": "/kaggle-solutions/:path+",
+      "destination": "https://kaggle.farid.one/:path+",
       "permanent": true
     },
     {
       "source": "/mafia",
-      "destination": "https://mafia.farid.one",
+      "destination": "https://mafia.farid.one/",
       "permanent": true
     },
     {
-      "source": "/mafia/:match*",
-      "destination": "https://mafia.farid.one/:match*",
+      "source": "/mafia/",
+      "destination": "https://mafia.farid.one/",
+      "permanent": true
+    },
+    {
+      "source": "/mafia/:path+",
+      "destination": "https://mafia.farid.one/:path+",
       "permanent": true
     }
   ]
