@@ -1,13 +1,13 @@
 {
   "redirects": [
     {
-      "source": "/kaggle-solutions/:match*",
-      "destination": "https://kaggle.farid.one/:match*",
+      "source": "/kaggle-solutions",
+      "destination": "https://kaggle.farid.one",
       "permanent": true
     },
     {
-      "source": "/mafia/:match*",
-      "destination": "https://mafia.farid.one/:match*",
+      "source": "/mafia",
+      "destination": "https://mafia.farid.one",
       "permanent": true
     }
   ]
