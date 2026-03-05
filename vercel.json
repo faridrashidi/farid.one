@@ -1,0 +1,14 @@
+{
+  "redirects": [
+    {
+      "source": "/kaggle-solutions/:match*",
+      "destination": "https://kaggle.farid.one/:match*",
+      "permanent": true
+    },
+    {
+      "source": "/mafia/:match*",
+      "destination": "https://mafia.farid.one/:match*",
+      "permanent": true
+    }
+  ]
+}
