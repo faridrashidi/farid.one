@@ -39,16 +39,17 @@ const projects = [
           rel="noopener noreferrer"
           class:list={["project-card", index === 2 && "project-card--centered"]}
         >
-          <div class="project-card__header">
-            <img
-              src={project.image}
-              alt={project.imageAlt}
-              class="project-card__logo"
-              loading="lazy"
-            />
-            <h3 class="project-card__title">{project.name}</h3>
+          <div class="project-card__top">
+            <div class="project-card__header">
+              <img
+                src={project.image}
+                alt={project.imageAlt}
+                class="project-card__logo"
+                loading="lazy"
+              />
+              <h3 class="project-card__title">{project.name}</h3>
+            </div>
           </div>
-
           <p
             class="project-card__description"
             lang={project.descriptionLang}
