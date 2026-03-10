@@ -13,3 +13,9 @@ npm install
 ```bash
 npm run dev
 ```
+
+## Releases
+
+```bash
+npm version "$(date '+%Y.%-m.%-d')"
+```
