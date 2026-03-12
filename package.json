@@ -2,6 +2,7 @@
   "name": "farid.one",
   "type": "module",
   "version": "2026.3.9",
+  "license": "MIT",
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
