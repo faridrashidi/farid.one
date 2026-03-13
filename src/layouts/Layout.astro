@@ -161,10 +161,10 @@ const { title = "Farid Rashidi" } = Astro.props;
       </footer>
     </div>
     <script>
-      const themeOrder = ["system", "light", "dark"];
+      const themeOrder: ThemePreference[] = ["system", "light", "dark"];
       const themeToggle = document.getElementById("theme-toggle");
 
-      const syncThemeToggle = (activeTheme) => {
+      const syncThemeToggle = (activeTheme: ThemePreference) => {
         document
           .getElementById("system-icon")
           ?.classList.toggle("hidden", activeTheme !== "system");
