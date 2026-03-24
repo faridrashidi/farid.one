@@ -19,6 +19,14 @@ const projects = [
     imageAlt: "Logo mark for CNSPlots",
   },
   {
+    name: "scPhylo-Tools",
+    description: "Toolkit for Single Cell Tumor Phylogenetic Analysis",
+    url: "https://scphylo-tools.readthedocs.io/",
+    image:
+      "https://raw.githubusercontent.com/faridrashidi/scphylo-tools/main/docs/source/_static/images/logo2.svg",
+    imageAlt: "Logo mark for CNSPlots",
+  },
+  {
     name: "MafiaDealer",
     description:
       "اپلیکیشن رایگان بازی مافیا با بیش از ۲۵ سناریو و مدیریت کامل بازی با کارت‌های دیجیتال",
@@ -34,12 +42,12 @@ const projects = [
 <section class="projects-section py-8 sm:py-12" aria-label="Projects">
   <div class="projects-grid">
     {
-      projects.map((project, index) => (
+      projects.map((project) => (
         <a
           href={project.url}
           target="_blank"
           rel="noopener noreferrer"
-          class:list={["project-card", index === 2 && "project-card--centered"]}
+          class="project-card"
         >
           <div class="project-card__top">
             <div class="project-card__header">
