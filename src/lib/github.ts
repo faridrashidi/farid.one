@@ -1,72 +1,42 @@
-import type { ProjectEntry } from "../data/projects";
-
 export const GITHUB_USERNAME = "faridrashidi";
+const GITHUB_CACHE_KEY = "github-repositories";
+const GITHUB_CACHE_TTL_MS = 30 * 60 * 1000;
 
 export type GitHubRepositoryStats = {
-  description: string;
-  forks: number;
-  homepage: string | null;
   language: string | null;
   name: string;
   stars: number;
-  url: string;
-};
-
-export type ProjectWithGitHub = ProjectEntry & {
-  github?: GitHubRepositoryStats;
 };
 
 type GitHubRepositoryResponse = {
-  description: string | null;
-  forks_count: number;
-  homepage: string | null;
-  html_url: string;
   language: string | null;
   name: string;
   stargazers_count: number;
 };
 
-type GitHubUserResponse = {
-  followers: number;
-  public_repos: number;
-};
-
-type GitHubSnapshot = {
-  followers: number;
-  publicRepos: number;
+type CachedGitHubRepositories = {
+  fetchedAt: number;
   repositories: GitHubRepositoryStats[];
-  repositoryMap: Map<string, GitHubRepositoryStats>;
-  totalStars: number;
-};
-
-const githubHeaders = () => {
-  const headers: HeadersInit = {
-    Accept: "application/vnd.github+json",
-    "User-Agent": "farid.one",
-  };
-
-  if (import.meta.env.GITHUB_API_TOKEN) {
-    headers.Authorization = `Bearer ${import.meta.env.GITHUB_API_TOKEN}`;
-  }
-
-  return headers;
 };
 
 const normalizeRepository = (
   repository: GitHubRepositoryResponse,
 ): GitHubRepositoryStats => ({
-  description: repository.description ?? "No description provided yet.",
-  forks: repository.forks_count,
-  homepage: repository.homepage || null,
   language: repository.language,
   name: repository.name,
   stars: repository.stargazers_count,
-  url: repository.html_url,
 });
 
-const githubRequest = async <Response>(path: string): Promise<Response> => {
+const buildRepositoryMap = (repositories: GitHubRepositoryStats[]) =>
+  new Map(
+    repositories.map((repository) => [repository.name.toLowerCase(), repository]),
+  );
+
+const githubRequest = async <Result>(path: string): Promise<Result> => {
   const response = await fetch(`https://api.github.com${path}`, {
-    headers: githubHeaders(),
+    headers: {
+      Accept: "application/vnd.github+json",
+    },
   });
 
   if (!response.ok) {
@@ -76,52 +46,74 @@ const githubRequest = async <Response>(path: string): Promise<Response> => {
   return response.json();
 };
 
-export const fetchGitHubSnapshot = async (
+const fetchGitHubRepositories = async (
   username = GITHUB_USERNAME,
-): Promise<GitHubSnapshot> => {
+): Promise<GitHubRepositoryStats[]> =>
+  (
+    await githubRequest<GitHubRepositoryResponse[]>(
+      `/users/${username}/repos?per_page=100&sort=updated`,
+    )
+  ).map(normalizeRepository);
+
+const loadCachedGitHubRepositories = () => {
+  if (typeof window === "undefined") {
+    return null;
+  }
+
   try {
-    const [user, repositoriesResponse] = await Promise.all([
-      githubRequest<GitHubUserResponse>(`/users/${username}`),
-      githubRequest<GitHubRepositoryResponse[]>(
-        `/users/${username}/repos?per_page=100&sort=updated`,
-      ),
-    ]);
+    const cachedValue = window.sessionStorage.getItem(GITHUB_CACHE_KEY);
 
-    const repositories = repositoriesResponse.map(normalizeRepository);
-    const repositoryMap = new Map(
-      repositories.map((repository) => [repository.name.toLowerCase(), repository]),
-    );
+    if (!cachedValue) {
+      return null;
+    }
 
-    return {
-      followers: user.followers,
-      publicRepos: user.public_repos,
-      repositories,
-      repositoryMap,
-      totalStars: repositories.reduce(
-        (sum, repository) => sum + repository.stars,
-        0,
-      ),
-    };
-  } catch (error) {
-    console.warn("Falling back to empty GitHub data.", error);
+    const cachedRepositories = JSON.parse(
+      cachedValue,
+    ) as CachedGitHubRepositories;
 
-    return {
-      followers: 0,
-      publicRepos: 0,
-      repositories: [],
-      repositoryMap: new Map(),
-      totalStars: 0,
-    };
+    if (Date.now() - cachedRepositories.fetchedAt > GITHUB_CACHE_TTL_MS) {
+      window.sessionStorage.removeItem(GITHUB_CACHE_KEY);
+      return null;
+    }
+
+    return cachedRepositories.repositories;
+  } catch {
+    return null;
   }
 };
 
-export const hydrateProjects = (
-  projects: ProjectEntry[],
-  repositoryMap: Map<string, GitHubRepositoryStats>,
-): ProjectWithGitHub[] =>
-  projects.map((project) => ({
-    ...project,
-    github: project.githubRepo
-      ? repositoryMap.get(project.githubRepo.toLowerCase())
-      : undefined,
-  }));
+const saveCachedGitHubRepositories = (repositories: GitHubRepositoryStats[]) => {
+  if (typeof window === "undefined") {
+    return;
+  }
+
+  try {
+    window.sessionStorage.setItem(
+      GITHUB_CACHE_KEY,
+      JSON.stringify({
+        fetchedAt: Date.now(),
+        repositories,
+      } satisfies CachedGitHubRepositories),
+    );
+  } catch {
+    // Ignore storage errors and fall back to a fresh request next time.
+  }
+};
+
+export const fetchGitHubRepositoryMapCached = async (
+  username = GITHUB_USERNAME,
+) => {
+  const cachedRepositories = loadCachedGitHubRepositories();
+
+  if (cachedRepositories) {
+    return buildRepositoryMap(cachedRepositories);
+  }
+
+  const repositories = await fetchGitHubRepositories(username);
+  saveCachedGitHubRepositories(repositories);
+
+  return buildRepositoryMap(repositories);
+};
+
+export const getGitHubLanguageClassName = (language: string) =>
+  `project-language-dot--${language.toLowerCase().replace(/\s+/g, "-")}`;

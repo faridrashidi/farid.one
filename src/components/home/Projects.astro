@@ -20,3 +20,98 @@ const { projects } = Astro.props;
     </div>
   </Wrapper>
 </section>
+
+<script>
+  import {
+    fetchGitHubRepositoryMapCached,
+    getGitHubLanguageClassName,
+  } from "../../lib/github";
+
+  const updateProjectCards = async () => {
+    const cards = Array.from(document.querySelectorAll("[data-github-repo]"));
+
+    if (!cards.length) {
+      return;
+    }
+
+    try {
+      const repositoryMap = await fetchGitHubRepositoryMapCached();
+
+      for (const card of cards) {
+        if (!(card instanceof HTMLElement)) {
+          continue;
+        }
+
+        const repositoryName = card.dataset.githubRepo;
+
+        if (!repositoryName) {
+          continue;
+        }
+
+        const repository = repositoryMap.get(repositoryName.toLowerCase());
+        const loadingLabel = card.querySelector("[data-github-loading]");
+        const languageGroup = card.querySelector("[data-github-language]");
+        const languageDot = card.querySelector("[data-github-language-dot]");
+        const languageText = card.querySelector("[data-github-language-name]");
+        const starsGroup = card.querySelector("[data-github-stars]");
+        const starsText = card.querySelector("[data-github-stars-count]");
+
+        if (!(loadingLabel instanceof HTMLElement)) {
+          continue;
+        }
+
+        loadingLabel.hidden = true;
+
+        if (!repository) {
+          continue;
+        }
+
+        if (
+          repository.language &&
+          languageGroup instanceof HTMLElement &&
+          languageDot instanceof HTMLElement &&
+          languageText instanceof HTMLElement
+        ) {
+          languageDot.classList.add(
+            getGitHubLanguageClassName(repository.language),
+          );
+          languageText.textContent = repository.language;
+          languageGroup.hidden = false;
+        }
+
+        if (
+          starsGroup instanceof HTMLElement &&
+          starsText instanceof HTMLElement
+        ) {
+          starsText.textContent = repository.stars.toLocaleString("en-US");
+          starsGroup.hidden = false;
+        }
+      }
+    } catch (error) {
+      console.warn("Unable to load GitHub project data.", error);
+
+      for (const card of cards) {
+        if (!(card instanceof HTMLElement)) {
+          continue;
+        }
+
+        const loadingLabel = card.querySelector("[data-github-loading]");
+
+        if (!(loadingLabel instanceof HTMLElement)) {
+          continue;
+        }
+
+        loadingLabel.textContent = "GitHub stats unavailable";
+        loadingLabel.classList.remove("animate-pulse");
+      }
+    }
+  };
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", updateProjectCards, {
+      once: true,
+    });
+  } else {
+    updateProjectCards();
+  }
+</script>
