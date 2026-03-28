@@ -3,7 +3,7 @@ import { getCollection } from "astro:content";
 
 import Projects from "../components/home/Projects.astro";
 import Biography from "../components/home/Biography.astro";
-import Writings from "../components/home/Writings.astro";
+import Posts from "../components/home/Posts.astro";
 import { curatedProjects } from "../data/projects";
 import { siteFeatures } from "../data/profile";
 import { getBlogEntryPath } from "../lib/blog";
@@ -29,6 +29,6 @@ const posts = siteFeatures.blogEnabled
 
 <Layout>
   <Biography />
-  {siteFeatures.blogEnabled && <Writings posts={posts} />}
   <Projects projects={curatedProjects} />
+  {siteFeatures.blogEnabled && <Posts posts={posts} />}
 </Layout>
