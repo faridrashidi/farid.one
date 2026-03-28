@@ -21,5 +21,8 @@ import TravelMap from "./TravelMap.astro";
     </div>
   </div>
 
-  <TravelMap />
+  <TravelMap
+    homeCountry={aboutContent.travel.homeCountry}
+    visitedCountries={aboutContent.travel.visitedCountries}
+  />
 </section>
