@@ -86,6 +86,7 @@ export const aboutContent = {
     intro: [
       "I've been lucky enough to discover many countries around the world.",
       "These are the ones that I visited.",
+      "🇺🇸🇮🇷🇧🇭🇬🇧🇦🇹🇩🇰🇸🇪🇹🇷🇮🇳🇨🇳🇷🇺🇦🇲🇦🇪🇫🇷🇶🇦🇨🇦",
     ],
     visitedCountries: [
       "United States",
