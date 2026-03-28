@@ -1,13 +1,36 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import PageTitle from "../components/PageTitle.astro";
+import Wrapper from "../components/Wrapper.astro";
+import { siteFeatures } from "../data/profile";
+
+const links = [
+  { href: "/", label: "Home" },
+  { href: "/about", label: "About" },
+  ...(siteFeatures.blogEnabled ? [{ href: "/blog", label: "Blog" }] : []),
+];
 ---
 
-<Layout title="404 - Page Not Found">
-  <div class="flex flex-col items-center justify-center py-20 text-center">
-    <h1 class="text-6xl font-bold mb-4">404</h1>
-    <p class="text-xl mb-8 opacity-70">Page not found</p>
-    <a href="/" class="text-[var(--color-accent)] hover:underline">
-      Go back home
-    </a>
-  </div>
+<Layout title="Page not found">
+  <Wrapper>
+    <div class="sm:py-10">
+      <PageTitle title="Are you lost?" />
+      <h2 class="pb-4 text-xl">
+        The page you are looking for doesn&apos;t exist.
+      </h2>
+      <h3 class="text-lg">Here are some helpful links instead:</h3>
+      <ul
+        class="list-inside list-disc px-4 py-8 text-lg underline underline-offset-2"
+      >
+        {
+          links.map((link) => (
+            <li>
+              <a href={link.href}>{link.label}</a>
+            </li>
+          ))
+        }
+      </ul>
+      <h4 class="text-lg font-extrabold">Error code: 404</h4>
+    </div>
+  </Wrapper>
 </Layout>

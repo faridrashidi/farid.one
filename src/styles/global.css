@@ -1,157 +1,252 @@
 @import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
 
 @layer base {
   :root {
     color-scheme: light;
-    --color-background: #fdfdfd;
-    --color-foreground: #282728;
-    --color-accent: #006cac;
-    --color-muted: #e6e6e6;
-    --color-border: #ece9e9;
-    --color-surface: rgba(255, 255, 255, 0.82);
+    --color-bg: #ffffff;
+    --color-card: #ffffff;
+    --color-surface: #ffffff;
     --color-surface-strong: #ffffff;
-    --color-text-muted: #5b6572;
-    --color-project-shadow: rgba(23, 36, 52, 0.16);
-    --color-project-ring: rgba(0, 108, 172, 0.26);
+    --color-text: #262626;
+    --color-text-muted: #737373;
+    --color-border: #f3f4f6;
+    --color-border-strong: #d4d4d8;
+    --color-shadow: rgba(15, 23, 42, 0.18);
+    --color-accent: #2563eb;
+    --color-map: #e7ebf0;
+    --color-map-stroke: #ffffff;
   }
   :root.dark {
     color-scheme: dark;
-    --color-background: #212737;
-    --color-foreground: #eaedf3;
-    --color-accent: #ff6b01;
-    --color-muted: #343f60bf;
-    --color-border: #ab4b08;
-    --color-surface: rgba(31, 39, 56, 0.86);
-    --color-surface-strong: #293246;
-    --color-text-muted: #bac5d6;
-    --color-project-shadow: rgba(2, 7, 18, 0.44);
-    --color-project-ring: rgba(255, 107, 1, 0.3);
+    --color-bg: #050505;
+    --color-card: #050505;
+    --color-surface: #050505;
+    --color-surface-strong: #171717;
+    --color-text: #ededed;
+    --color-text-muted: #9ca3af;
+    --color-border: #27272a;
+    --color-border-strong: #3f3f46;
+    --color-shadow: rgba(0, 0, 0, 0.65);
+    --color-accent: #60a5fa;
+    --color-map: #202020;
+    --color-map-stroke: #050505;
   }
   html {
-    font-family:
-      ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
-      "Courier New", monospace;
-    font-size: 1.05rem;
+    background: var(--color-bg);
+    color: var(--color-text);
+    font-family: "Inter", system-ui, sans-serif;
+    font-size: 16px;
+    font-weight: 450;
     line-height: 1.6;
+    scroll-behavior: smooth;
   }
   body {
-    background-color: var(--color-background);
-    color: var(--color-foreground);
-  }
-  [lang="fa"] {
-    font-family: "Vazirmatn", Tahoma, sans-serif;
+    background: var(--color-bg);
+    color: var(--color-text);
+    margin: 0;
+    padding: 0;
   }
   a {
-    color: var(--color-accent);
+    color: inherit;
     text-decoration: none;
   }
-  a:hover {
-    text-decoration: underline;
+  :lang(fa) {
+    font-family: "Vazirmatn", "Inter", system-ui, sans-serif;
+  }
+  [dir="rtl"] {
+    direction: rtl;
+    text-align: right;
+  }
+  p {
+    text-wrap: pretty;
+  }
+  ::selection {
+    background: color-mix(in srgb, var(--color-accent) 22%, transparent);
   }
 }
 
 @layer components {
-  .projects-grid {
-    display: grid;
-    gap: 1rem;
-    grid-template-columns: minmax(0, 1fr);
-    justify-items: center;
+  .project-language-dot {
+    display: inline-block;
+    height: 0.6rem;
+    width: 0.6rem;
+    border-radius: 999px;
+    background: #94a3b8;
   }
 
-  .project-card {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    border: 1px solid var(--color-border);
-    border-radius: 0.5rem;
-    background: var(--color-surface-strong);
-    padding: 1.2rem;
-    text-decoration: none;
+  .project-language-dot--python {
+    background: #3776ab;
+  }
+
+  .project-language-dot--astro {
+    background: #ff5d01;
+  }
+
+  .project-language-dot--typescript {
+    background: #3178c6;
+  }
+
+  .project-language-dot--shell {
+    background: #89e051;
+  }
+
+  .travel-map-card {
     overflow: hidden;
-    transition:
-      border-color 200ms ease,
-      box-shadow 280ms ease;
+    border-radius: 1.5rem;
+    border: 1px solid var(--color-border);
+    background:
+      radial-gradient(circle at top, rgba(96, 165, 250, 0.12), transparent 42%),
+      var(--color-card);
+    padding: 1.5rem;
+    box-shadow: 0 22px 55px -35px var(--color-shadow);
   }
 
-  .project-card:hover,
-  .project-card:focus-visible {
-    border-color: var(--color-project-ring);
-    text-decoration: none;
+  .travel-continent {
+    fill: var(--color-map);
+    stroke: var(--color-map-stroke);
+    stroke-width: 3;
   }
 
-  .project-card:focus-visible {
-    outline: none;
+  .travel-point {
+    stroke: rgba(255, 255, 255, 0.7);
+    stroke-width: 2;
   }
 
-  .project-card__top {
-    display: flex;
+  .travel-point--visited {
+    fill: #737373;
+  }
+
+  .travel-point--home {
+    fill: #38bdf8;
+  }
+
+  .travel-pulse {
+    fill: none;
+    opacity: 0.5;
+    animation: pulse 2.4s ease infinite;
+  }
+
+  .travel-pulse--visited {
+    stroke: #a3a3a3;
+  }
+
+  .travel-pulse--home {
+    stroke: #7dd3fc;
+  }
+
+  .travel-legend {
+    display: inline-flex;
     align-items: center;
-    justify-content: space-between;
     gap: 0.5rem;
-    margin-bottom: 0.9rem;
+    border-radius: 999px;
+    border: 1px solid var(--color-border);
+    background: var(--color-surface);
+    padding: 0.5rem 0.9rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--color-text);
   }
 
-  .project-card__header {
-    display: flex;
-    align-items: center;
-    gap: 0.65rem;
-    min-width: 0;
+  .travel-legend::before {
+    content: "";
+    height: 0.55rem;
+    width: 0.55rem;
+    border-radius: 999px;
+    animation: pulse 2.4s ease infinite;
   }
 
-  .project-card__logo {
-    display: block;
-    width: 2.25rem;
-    height: 2.25rem;
-    flex: 0 0 2.25rem;
-    border-radius: 0.6rem;
-    object-fit: contain;
+  .travel-legend--visited::before {
+    background: #737373;
   }
 
-  .project-card__arrow {
-    color: var(--color-text-muted);
-    flex-shrink: 0;
-    margin-top: 0.15rem;
+  .travel-legend--home::before {
+    background: #38bdf8;
   }
 
-  .project-card__title {
-    margin: 0;
-    color: var(--color-foreground);
-    font-size: 0.88rem;
+  .prose {
+    color: var(--color-text);
+  }
+
+  .prose h1,
+  .prose h2,
+  .prose h3 {
+    color: var(--color-text);
     font-weight: 700;
     letter-spacing: -0.02em;
+  }
+
+  .prose h1 {
+    font-size: 2rem;
     line-height: 1.2;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    margin-bottom: 1rem;
   }
 
-  .project-card__description {
-    margin: 0;
-    color: var(--color-text-muted);
-    font-size: 0.775rem;
-    line-height: 1.6;
+  .prose h2 {
+    font-size: 1.35rem;
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
   }
 
-  .project-card__description[lang="fa"] {
-    direction: rtl;
-    text-align: right;
+  .prose p,
+  .prose ul,
+  .prose ol {
+    margin-bottom: 1.25rem;
+    line-height: 1.8;
   }
 
-  @media (min-width: 768px) {
-    .projects-grid {
-      grid-template-columns: repeat(2, minmax(0, 15.5rem));
-      justify-content: center;
-    }
+  .prose ul,
+  .prose ol {
+    padding-left: 1.25rem;
+  }
 
-    .project-card {
-      width: 15.5rem;
-    }
+  .prose li + li {
+    margin-top: 0.4rem;
+  }
 
-    .project-card--centered {
-      grid-column: 1 / -1;
-      justify-self: center;
-      width: 15.5rem;
-    }
+  .prose a {
+    color: var(--color-accent);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.2rem;
+  }
+
+  .prose code {
+    font-family: "JetBrains Mono", monospace;
+    border-radius: 0.4rem;
+    border: 1px solid var(--color-border);
+    background: var(--color-surface);
+    padding: 0.08rem 0.4rem;
+    color: var(--color-text);
+  }
+
+  .prose pre {
+    overflow-x: auto;
+    border-radius: 1rem;
+    border: 1px solid var(--color-border);
+    background: var(--color-surface);
+    padding: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .prose pre code {
+    border: 0;
+    padding: 0;
+    background: transparent;
+  }
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0.8;
+    transform: scale(0.9);
+  }
+  70% {
+    opacity: 0;
+    transform: scale(1.55);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.7);
   }
 }

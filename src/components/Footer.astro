@@ -1,0 +1,17 @@
+---
+import { siteConfig } from "../data/profile";
+import SocialIconLinks from "./SocialIconLinks.astro";
+import Wrapper from "./Wrapper.astro";
+---
+
+<footer class="mt-8">
+  <Wrapper>
+    <div
+      class="flex items-center justify-between px-1 py-4 text-sm text-neutral-500 dark:text-neutral-500"
+    >
+      <span>© {new Date().getFullYear()} {siteConfig.title}</span>
+
+      <SocialIconLinks />
+    </div>
+  </Wrapper>
+</footer>

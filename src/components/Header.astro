@@ -1,0 +1,205 @@
+---
+import { navigationLinks, siteConfig } from "../data/profile";
+import ThemeSelector from "./ThemeSelector.astro";
+import Wrapper from "./Wrapper.astro";
+
+const pathname = Astro.url.pathname;
+const mobileNavigationLinks = [
+  { href: "/", label: "Home" },
+  ...navigationLinks,
+];
+const isIndeterminate = navigationLinks.every(
+  (link) => !(pathname === link.href || pathname.startsWith(`${link.href}/`)),
+);
+const mobileIsIndeterminate = mobileNavigationLinks.every(
+  (link) => !(pathname === link.href || pathname.startsWith(`${link.href}/`)),
+);
+
+const isActive = (href: string) =>
+  pathname === href || (href !== "/" && pathname.startsWith(`${href}/`));
+---
+
+<header
+  data-mobile-menu-root
+  class="sticky top-0 z-10 bg-white/75 py-2 backdrop-blur-xl dark:bg-black/75 sm:py-3"
+>
+  <Wrapper>
+    <nav class="flex items-center justify-between font-semibold">
+      <a
+        href="/"
+        class="grid grid-flow-col items-center overflow-hidden rounded-full"
+        aria-label="Go to homepage"
+      >
+        <img
+          src={siteConfig.avatar}
+          alt={siteConfig.title}
+          class="rounded-full opacity-100"
+          width="32"
+          height="32"
+          loading="eager"
+        />
+      </a>
+
+      <div
+        class="flex flex-row-reverse items-center gap-3 sm:flex-row sm:gap-4"
+      >
+        <ul class="hidden grid-flow-col gap-6 text-sm font-medium sm:grid">
+          {
+            navigationLinks.map((link) => (
+              <li>
+                <a
+                  href={link.href}
+                  class:list={[
+                    "transition-opacity",
+                    isIndeterminate
+                      ? "hover:opacity-60"
+                      : isActive(link.href)
+                        ? "opacity-100"
+                        : "opacity-50 hover:opacity-100",
+                  ]}
+                >
+                  {link.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+
+        <button
+          data-mobile-menu-open
+          type="button"
+          class="rounded-lg p-2 fill-black focus:outline-hidden focus:ring-1 focus:ring-neutral-300 dark:fill-white dark:focus:ring-neutral-500 sm:hidden"
+          aria-label="Open navigation menu"
+          aria-expanded="false"
+          aria-controls="mobile-navigation-menu"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            fill="currentColor"
+            aria-hidden="true"
+          >
+            <path
+              d="M3 6h18v2.016H3V6zm0 6.984v-1.969h18v1.969H3zM3 18v-2.016h18V18H3z"
+            ></path>
+          </svg>
+        </button>
+
+        <ThemeSelector />
+      </div>
+    </nav>
+  </Wrapper>
+
+  <nav
+    id="mobile-navigation-menu"
+    data-mobile-menu-panel
+    class="fixed inset-0 z-20 hidden bg-white dark:bg-black sm:hidden"
+    aria-hidden="true"
+  >
+    <div class="absolute right-0 px-6 py-2">
+      <button
+        data-mobile-menu-close
+        type="button"
+        class="rounded-lg p-2 fill-black focus:outline-hidden focus:ring-1 focus:ring-neutral-300 dark:fill-white dark:focus:ring-neutral-500"
+        aria-label="Close navigation menu"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          fill="currentColor"
+          aria-hidden="true"
+        >
+          <path
+            d="M18.984 6.422L13.406 12l5.578 5.578-1.406 1.406L12 13.406l-5.578 5.578-1.406-1.406L10.594 12 5.016 6.422l1.406-1.406L12 10.594l5.578-5.578z"
+          ></path>
+        </svg>
+      </button>
+    </div>
+
+    <ul
+      class="m-0 flex h-full flex-1 flex-col items-center justify-center space-y-5 text-2xl font-medium"
+    >
+      {
+        mobileNavigationLinks.map((link) => (
+          <li>
+            <a
+              href={link.href}
+              data-mobile-menu-link
+              class:list={[
+                "transition-opacity",
+                mobileIsIndeterminate
+                  ? "hover:opacity-60"
+                  : isActive(link.href)
+                    ? "opacity-100"
+                    : "opacity-50 hover:opacity-100",
+              ]}
+            >
+              {link.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+
+  <script is:inline>
+    (() => {
+      const root = document.querySelector("[data-mobile-menu-root]");
+      if (
+        !(root instanceof HTMLElement) ||
+        root.dataset.mobileMenuReady === "true"
+      ) {
+        return;
+      }
+
+      root.dataset.mobileMenuReady = "true";
+
+      const panel = root.querySelector("[data-mobile-menu-panel]");
+      const openButton = root.querySelector("[data-mobile-menu-open]");
+      const closeButton = root.querySelector("[data-mobile-menu-close]");
+      const links = root.querySelectorAll("[data-mobile-menu-link]");
+
+      if (
+        !(panel instanceof HTMLElement) ||
+        !(openButton instanceof HTMLButtonElement) ||
+        !(closeButton instanceof HTMLButtonElement)
+      ) {
+        return;
+      }
+
+      const setOpen = (isOpen) => {
+        panel.classList.toggle("hidden", !isOpen);
+        panel.setAttribute("aria-hidden", String(!isOpen));
+        openButton.setAttribute("aria-expanded", String(isOpen));
+        root.classList.toggle("backdrop-blur-xl", !isOpen);
+        document.documentElement.style.overflow = isOpen ? "hidden" : "";
+        document.body.style.overflow = isOpen ? "hidden" : "";
+
+        if (isOpen) {
+          closeButton.focus();
+        }
+      };
+
+      openButton.addEventListener("click", () => setOpen(true));
+      closeButton.addEventListener("click", () => setOpen(false));
+
+      links.forEach((link) => {
+        link.addEventListener("click", () => setOpen(false));
+      });
+
+      window.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") {
+          setOpen(false);
+        }
+      });
+
+      window.addEventListener("resize", () => {
+        if (window.innerWidth >= 640) {
+          setOpen(false);
+        }
+      });
+    })();
+  </script>
+</header>
