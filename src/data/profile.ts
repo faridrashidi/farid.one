@@ -65,7 +65,7 @@ export const footerLinks: SocialLink[] = [
   },
   {
     name: "Email",
-    url: "mailto:me@farid.one",
+    url: "mailto:hi@farid.one",
     icon: "email",
   },
 ];
