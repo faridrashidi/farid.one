@@ -1,0 +1,89 @@
+---
+import { getCollection } from "astro:content";
+
+import BlogPageListItem from "../../components/blog/BlogPageListItem.astro";
+import Year from "../../components/blog/Year.astro";
+import PageTitle from "../../components/PageTitle.astro";
+import Wrapper from "../../components/Wrapper.astro";
+import { siteFeatures } from "../../data/profile";
+import { getBlogEntryPath } from "../../lib/blog";
+import Layout from "../../layouts/Layout.astro";
+
+export const prerender = true;
+
+const posts = siteFeatures.blogEnabled
+  ? (await getCollection("blog")).sort(
+      (left, right) =>
+        right.data.publishedAt.getTime() - left.data.publishedAt.getTime(),
+    )
+  : [];
+
+const postsByYear = posts.reduce<Record<string, typeof posts>>(
+  (groups, post) => {
+    const year = String(post.data.publishedAt.getUTCFullYear());
+    groups[year] ??= [];
+    groups[year].push(post);
+    return groups;
+  },
+  {},
+);
+
+const years = Object.keys(postsByYear).sort(
+  (left, right) => Number(right) - Number(left),
+);
+const fallbackLinks = [
+  { href: "/", label: "Home" },
+  { href: "/about", label: "About" },
+];
+
+if (!siteFeatures.blogEnabled) {
+  Astro.response.status = 404;
+}
+---
+
+<Layout title={siteFeatures.blogEnabled ? "Blog" : "Page not found"}>
+  <Wrapper>
+    {
+      siteFeatures.blogEnabled ? (
+        <main>
+          <PageTitle title="Blog" />
+
+          <div class="grid gap-8">
+            {years.map((year) => (
+              <section>
+                <Year year={year} />
+
+                <ul class="grid grid-flow-row gap-3">
+                  {postsByYear[year].map((post) => (
+                    <BlogPageListItem
+                        href={`/blog/${getBlogEntryPath(post.id)}`}
+                        title={post.data.title}
+                        date={post.data.publishedAt}
+                        language={post.data.language}
+                    />
+                  ))}
+                </ul>
+              </section>
+            ))}
+          </div>
+        </main>
+      ) : (
+        <div class="sm:py-10">
+          <PageTitle title="Are you lost?" />
+          <h2 class="pb-4 text-xl">
+            The page you are looking for doesn&apos;t exist.
+          </h2>
+          <h3 class="text-lg">Here are some helpful links instead:</h3>
+          <ul class="list-inside list-disc px-4 py-8 text-lg underline underline-offset-2">
+            {fallbackLinks.map((link) => (
+              <li>
+                <a href={link.href}>{link.label}</a>
+              </li>
+            ))}
+          </ul>
+          <h4 class="text-lg font-extrabold">Error code: 404</h4>
+        </div>
+      )
+    }
+  </Wrapper>
+</Layout>

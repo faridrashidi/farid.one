@@ -1,0 +1,30 @@
+---
+interface Props {
+  color: "neutral" | "red";
+  label: string;
+}
+
+const { color, label } = Astro.props;
+const colorClasses = {
+  neutral: "bg-neutral-500",
+  red: "bg-red-500",
+} as const;
+---
+
+<div
+  class="flex items-center justify-center rounded-full border border-neutral-400/30 bg-transparent px-4 py-2 text-sm font-semibold text-neutral-700 opacity-100 dark:border-neutral-700/30 dark:text-neutral-200"
+>
+  <div class="relative mr-2 flex h-2 w-2">
+    <span
+      class:list={[
+        "absolute inline-flex h-full w-full animate-ping rounded-full opacity-75",
+        colorClasses[color],
+      ]}></span>
+    <span
+      class:list={[
+        "relative inline-flex h-2 w-2 rounded-full",
+        colorClasses[color],
+      ]}></span>
+  </div>
+  {label}
+</div>

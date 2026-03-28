@@ -1,0 +1,17 @@
+---
+interface Props {
+  src: string;
+  title: string;
+}
+
+const { src, title } = Astro.props;
+---
+
+<header class="relative">
+  <img
+    src={src}
+    alt={title}
+    class="my-8 h-auto w-full rounded-lg"
+    loading="eager"
+  />
+</header>

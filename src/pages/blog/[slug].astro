@@ -1,0 +1,109 @@
+---
+import { getCollection, render } from "astro:content";
+
+import FeaturedImage from "../../components/blog/FeaturedImage.astro";
+import PageTitle from "../../components/PageTitle.astro";
+import Wrapper from "../../components/Wrapper.astro";
+import { siteFeatures } from "../../data/profile";
+import { getBlogEntryPath } from "../../lib/blog";
+import { formatPostDate, formatReadingTime } from "../../lib/formatters";
+import Layout from "../../layouts/Layout.astro";
+
+export const prerender = true;
+
+export async function getStaticPaths() {
+  if (!siteFeatures.blogEnabled) {
+    return [];
+  }
+
+  const entries = await getCollection("blog");
+
+  return entries.map((entry) => ({
+    params: { slug: getBlogEntryPath(entry.id) },
+    props: { entry },
+  }));
+}
+
+const entry = siteFeatures.blogEnabled ? Astro.props.entry : undefined;
+const renderedEntry = entry ? await render(entry) : undefined;
+const Content = renderedEntry?.Content;
+const fallbackLinks = [
+  { href: "/", label: "Home" },
+  { href: "/about", label: "About" },
+];
+
+let pageTitle = "Page not found";
+let language = "en";
+let readingTime = "";
+
+if (entry) {
+  pageTitle = `${entry.data.title} | Blog`;
+  language = entry.data.language ?? "en";
+  readingTime = formatReadingTime(entry.body);
+} else {
+  Astro.response.status = 404;
+}
+---
+
+<Layout title={pageTitle} description={entry?.data.excerpt}>
+  {
+    entry && Content ? (
+      <article class="postDetail">
+        <main>
+          <Wrapper compressed>
+            {entry.data.featuredImage && (
+              <FeaturedImage
+                src={entry.data.featuredImage}
+                title={entry.data.title}
+              />
+            )}
+
+            <header class="mb-6 pb-4">
+              <h1
+                class="mb-2 text-4xl font-extrabold tracking-tight"
+                dir={language === "fa" ? "rtl" : undefined}
+                lang={language}
+              >
+                {entry.data.title}
+              </h1>
+
+              <div class="text-sm opacity-70">
+                <time datetime={entry.data.publishedAt.toISOString()}>
+                  {formatPostDate(entry.data.publishedAt)}
+                </time>
+                <span class="px-1">•</span>
+                <span>{readingTime}</span>
+              </div>
+            </header>
+
+            <div
+              class="prose relative max-w-full"
+              dir={language === "fa" ? "rtl" : undefined}
+              lang={language}
+            >
+              <Content />
+            </div>
+          </Wrapper>
+        </main>
+      </article>
+    ) : (
+      <Wrapper>
+        <div class="sm:py-10">
+          <PageTitle title="Are you lost?" />
+          <h2 class="pb-4 text-xl">
+            The page you are looking for doesn&apos;t exist.
+          </h2>
+          <h3 class="text-lg">Here are some helpful links instead:</h3>
+          <ul class="list-inside list-disc px-4 py-8 text-lg underline underline-offset-2">
+            {fallbackLinks.map((link) => (
+              <li>
+                <a href={link.href}>{link.label}</a>
+              </li>
+            ))}
+          </ul>
+          <h4 class="text-lg font-extrabold">Error code: 404</h4>
+        </div>
+      </Wrapper>
+    )
+  }
+</Layout>

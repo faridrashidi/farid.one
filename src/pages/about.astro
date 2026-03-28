@@ -1,0 +1,17 @@
+---
+import Travelling from "../components/about/Travelling.astro";
+import WhoAmI from "../components/about/WhoAmI.astro";
+import PageTitle from "../components/PageTitle.astro";
+import Wrapper from "../components/Wrapper.astro";
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="About">
+  <Wrapper>
+    <main>
+      <PageTitle title="About me" />
+      <WhoAmI />
+      <Travelling />
+    </main>
+  </Wrapper>
+</Layout>

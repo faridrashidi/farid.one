@@ -1,0 +1,25 @@
+---
+import { aboutContent } from "../../data/profile";
+import SectionTitle from "../SectionTitle.astro";
+import TravelLabel from "./TravelLabel.astro";
+import TravelMap from "./TravelMap.astro";
+---
+
+<section>
+  <SectionTitle title="Travelling" />
+
+  <div
+    class="mb-7 flex flex-col items-start justify-between sm:flex-row sm:space-x-8"
+  >
+    <div class="mb-3 space-y-1 sm:mb-0">
+      {aboutContent.travel.intro.map((line) => <p>{line}</p>)}
+    </div>
+
+    <div class="flex space-x-2">
+      <TravelLabel label="Visited" color="neutral" />
+      <TravelLabel label="Home" color="red" />
+    </div>
+  </div>
+
+  <TravelMap />
+</section>
