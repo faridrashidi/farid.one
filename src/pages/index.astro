@@ -7,8 +7,9 @@ import Writings from "../components/home/Writings.astro";
 import { curatedProjects } from "../data/projects";
 import { siteFeatures } from "../data/profile";
 import { getBlogEntryPath } from "../lib/blog";
-import { fetchGitHubSnapshot, hydrateProjects } from "../lib/github";
 import Layout from "../layouts/Layout.astro";
+
+export const prerender = true;
 
 const posts = siteFeatures.blogEnabled
   ? (await getCollection("blog"))
@@ -24,13 +25,10 @@ const posts = siteFeatures.blogEnabled
         title: post.data.title,
       }))
   : [];
-
-const githubSnapshot = await fetchGitHubSnapshot();
-const projects = hydrateProjects(curatedProjects, githubSnapshot.repositoryMap);
 ---
 
 <Layout>
   <Biography />
   {siteFeatures.blogEnabled && <Writings posts={posts} />}
-  <Projects projects={projects} />
+  <Projects projects={curatedProjects} />
 </Layout>
