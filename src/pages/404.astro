@@ -4,6 +4,8 @@ import PageTitle from "../components/PageTitle.astro";
 import Wrapper from "../components/Wrapper.astro";
 import { siteFeatures } from "../data/profile";
 
+export const prerender = true;
+
 const links = [
   { href: "/", label: "Home" },
   { href: "/about", label: "About" },
