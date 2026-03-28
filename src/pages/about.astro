@@ -1,9 +1,11 @@
 ---
+import Sport from "../components/about/Sport.astro";
 import Travelling from "../components/about/Travelling.astro";
 import WhoAmI from "../components/about/WhoAmI.astro";
 import PageTitle from "../components/PageTitle.astro";
 import Wrapper from "../components/Wrapper.astro";
 import Layout from "../layouts/Layout.astro";
+import { siteFeatures } from "../data/profile";
 
 export const prerender = true;
 ---
@@ -13,6 +15,7 @@ export const prerender = true;
     <main>
       <PageTitle title="About me" />
       <WhoAmI />
+      {siteFeatures.sportEnabled && <Sport />}
       <Travelling />
     </main>
   </Wrapper>

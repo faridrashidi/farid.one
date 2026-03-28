@@ -21,24 +21,6 @@ export type BiographyPart =
       value: string;
     };
 
-const biographyParagraphs: BiographyPart[][] = [
-  [
-    {
-      type: "text",
-      value:
-        "I'm a computer scientist with expertise in computational biology and cancer genomics.",
-    },
-  ],
-  [
-    {
-      type: "text",
-      value:
-        "I do research, publish scientific work, and love open-source programming. ",
-    },
-    { type: "link", value: "More about me", href: "/about" },
-  ],
-];
-
 export const siteConfig = {
   avatar:
     "https://www.gravatar.com/avatar/42125cfaaf0a859652acd4832533745d?s=512",
@@ -50,6 +32,7 @@ export const siteConfig = {
 
 export const siteFeatures = {
   blogEnabled: false,
+  sportEnabled: true,
 };
 
 export const navigationLinks: NavigationLink[] = [
@@ -72,7 +55,26 @@ export const footerLinks: SocialLink[] = [
 
 export const biography = {
   greeting: "Hi, I'm Farid Rashidi.",
-  paragraphs: biographyParagraphs,
+  paragraphs: [
+    [
+      {
+        type: "text",
+        value:
+          "I'm a computer scientist with expertise in computational biology and cancer genomics.",
+      },
+    ],
+    [
+      {
+        type: "text",
+        value:
+          "I do research, publish scientific work, and love open-source programming. ",
+      },
+      { type: "link", value: "More about me", href: "/about" },
+    ],
+  ],
+} satisfies {
+  greeting: string;
+  paragraphs: BiographyPart[][];
 };
 
 export const aboutContent = {
@@ -81,6 +83,12 @@ export const aboutContent = {
     "My work focuses on cancer research, where I develop tools, analyze data, and write and publish scientific publications.",
     "I love programming and building practical software, and I enjoy creating open-source projects.",
   ],
+  sport: {
+    paragraphs: [
+      "Karate has been one of the most defining parts of my life outside work. I hold a 2nd Dan black belt and have competed internationally, with multiple podium finishes including gold medals at the 8th and 9th AMA International Karate Open in England (2006 and 2007) and a bronze medal at the Budo-Nord Karate Open World Cup in Sweden (2005).",
+      "Beyond karate, I enjoy staying active and sharp in different ways. I am a certified lifeguard, an avid tennis player, a competitive chess enthusiast, and I am passionate about social deduction and strategy games.",
+    ],
+  },
   travel: {
     homeCountry: "Iran",
     intro: [
