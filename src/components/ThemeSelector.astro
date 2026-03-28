@@ -121,6 +121,7 @@
           option.setAttribute("aria-selected", String(selected));
           label?.classList.toggle("font-medium", selected);
           label?.classList.toggle("font-normal", !selected);
+          check?.classList.toggle("flex", selected);
           check?.classList.toggle("hidden", !selected);
         });
       };
