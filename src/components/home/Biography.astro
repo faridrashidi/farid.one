@@ -1,0 +1,46 @@
+---
+import { biography, siteConfig } from "../../data/profile";
+import SocialIconLinks from "../SocialIconLinks.astro";
+import Wrapper from "../Wrapper.astro";
+---
+
+<section class="my-12">
+  <Wrapper>
+    <div class="flex flex-col gap-8 sm:flex-row sm:justify-between">
+      <div class="max-w-2xl">
+        <h1 class="pb-4 text-2xl font-bold">{biography.greeting}</h1>
+
+        <div class="grid gap-4">
+          {
+            biography.paragraphs.map((paragraph) => (
+              <p class="sm:max-w-md">
+                {paragraph.map((part) =>
+                  part.type === "link" ? (
+                    <a
+                      href={part.href}
+                      target={part.external ? "_blank" : undefined}
+                      rel={part.external ? "noopener noreferrer" : undefined}
+                      class="underline underline-offset-2"
+                    >
+                      {part.value}
+                    </a>
+                  ) : (
+                    part.value
+                  ),
+                )}
+              </p>
+            ))
+          }
+
+          <SocialIconLinks variant="hero" />
+        </div>
+      </div>
+
+      <img
+        src={siteConfig.avatar}
+        alt={siteConfig.title}
+        class="hidden h-44 w-44 transform-gpu rounded-full sm:block"
+      />
+    </div>
+  </Wrapper>
+</section>

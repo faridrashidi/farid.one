@@ -1,0 +1,22 @@
+---
+import type { ProjectWithGitHub } from "../../lib/github";
+import HomeProjectCard from "./HomeProjectCard.astro";
+import SectionTitle from "../SectionTitle.astro";
+import Wrapper from "../Wrapper.astro";
+
+interface Props {
+  projects: ProjectWithGitHub[];
+}
+
+const { projects } = Astro.props;
+---
+
+<section id="projects" class="pb-4">
+  <Wrapper>
+    <SectionTitle title="Projects" />
+
+    <div class="grid gap-5 sm:grid-cols-2 md:grid-cols-3">
+      {projects.map((project) => <HomeProjectCard project={project} />)}
+    </div>
+  </Wrapper>
+</section>

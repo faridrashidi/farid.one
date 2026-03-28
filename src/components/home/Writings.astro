@@ -1,0 +1,37 @@
+---
+import SectionTitle from "../SectionTitle.astro";
+import Wrapper from "../Wrapper.astro";
+import BlogListItem from "../blog/BlogListItem.astro";
+
+interface PostItem {
+  language?: "en" | "fa";
+  publishedAt: Date;
+  slug: string;
+  title: string;
+}
+
+interface Props {
+  posts: PostItem[];
+}
+
+const { posts } = Astro.props;
+---
+
+<section>
+  <Wrapper>
+    <SectionTitle title="Writings" href="/blog" viewAll />
+
+    <ul class="grid gap-3 sm:gap-1">
+      {
+        posts.map((post) => (
+          <BlogListItem
+            href={`/blog/${post.slug}`}
+            title={post.title}
+            date={post.publishedAt}
+            language={post.language}
+          />
+        ))
+      }
+    </ul>
+  </Wrapper>
+</section>

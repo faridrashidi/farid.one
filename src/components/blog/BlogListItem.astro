@@ -1,0 +1,42 @@
+---
+import { formatFullDate, formatMonthDay } from "../../lib/formatters";
+
+interface Props {
+  date: Date;
+  href: string;
+  language?: "en" | "fa";
+  title: string;
+}
+
+const { date, href, language = "en", title } = Astro.props;
+---
+
+<li class="-mx-1.5">
+  <a
+    href={href}
+    title={title}
+    class="block h-full w-full rounded-md p-1.5 text-[15px] transition-all hover:bg-neutral-100 focus-within:bg-neutral-100 focus:outline-none focus:ring-1 focus:ring-neutral-300 dark:hover:bg-neutral-900 dark:focus-within:bg-neutral-900 dark:focus:ring-neutral-500"
+  >
+    <article
+      class="flex flex-col-reverse gap-1 sm:flex-row sm:items-baseline sm:gap-3"
+    >
+      <time
+        class="opacity-60 sm:w-[6.25rem]"
+        datetime={date.toISOString()}
+        aria-label={`Written ${formatFullDate(date)}`}
+      >
+        {formatMonthDay(date)}, {date.getFullYear()}
+      </time>
+
+      <div class="flex-1">
+        <header
+          class="font-medium"
+          dir={language === "fa" ? "rtl" : undefined}
+          lang={language}
+        >
+          {title}
+        </header>
+      </div>
+    </article>
+  </a>
+</li>
