@@ -1,11 +1,11 @@
 ---
-import type { ProjectWithGitHub } from "../../lib/github";
+import type { ProjectEntry } from "../../data/projects";
 import HomeProjectCard from "./HomeProjectCard.astro";
 import SectionTitle from "../SectionTitle.astro";
 import Wrapper from "../Wrapper.astro";
 
 interface Props {
-  projects: ProjectWithGitHub[];
+  projects: ProjectEntry[];
 }
 
 const { projects } = Astro.props;
