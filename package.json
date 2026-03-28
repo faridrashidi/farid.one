@@ -3,6 +3,9 @@
   "type": "module",
   "version": "2026.3.24",
   "license": "MIT",
+  "engines": {
+    "node": ">=22.12.0"
+  },
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
@@ -10,8 +13,18 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/vercel": "^10.0.3",
     "@tailwindcss/vite": "^4.1.18",
-    "astro": "^5.18.0",
+    "astro": "^6.1.1",
     "tailwindcss": "^4.1.18"
+  },
+  "overrides": {
+    "@vercel/routing-utils": {
+      "path-to-regexp": "6.3.0"
+    },
+    "picomatch": "4.0.4",
+    "anymatch": {
+      "picomatch": "2.3.2"
+    }
   }
 }
