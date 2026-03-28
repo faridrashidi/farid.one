@@ -10,11 +10,15 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "postinstall": "astro sync"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.18",
     "astro": "^6.1.1",
     "tailwindcss": "^4.1.18"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.3"
   }
 }
