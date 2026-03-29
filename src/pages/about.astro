@@ -2,6 +2,7 @@
 import Sport from "../components/about/Sport.astro";
 import Travelling from "../components/about/Travelling.astro";
 import WhoAmI from "../components/about/WhoAmI.astro";
+import Work from "../components/about/Work.astro";
 import PageTitle from "../components/PageTitle.astro";
 import Wrapper from "../components/Wrapper.astro";
 import Layout from "../layouts/Layout.astro";
@@ -15,6 +16,7 @@ export const prerender = true;
     <main>
       <PageTitle title="About me" />
       <WhoAmI />
+      {siteFeatures.workEnabled && <Work />}
       {siteFeatures.sportEnabled && <Sport />}
       <Travelling />
     </main>

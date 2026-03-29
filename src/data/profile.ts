@@ -33,6 +33,7 @@ export const siteConfig = {
 export const siteFeatures = {
   blogEnabled: false,
   sportEnabled: true,
+  workEnabled: false,
 };
 
 export const navigationLinks: NavigationLink[] = [
