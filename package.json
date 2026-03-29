@@ -1,7 +1,7 @@
 {
   "name": "farid.one",
   "type": "module",
-  "version": "2026.3.28",
+  "version": "2026.3.29",
   "license": "MIT",
   "engines": {
     "node": ">=22.12.0"
