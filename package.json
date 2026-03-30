@@ -19,6 +19,7 @@
     "tailwindcss": "^4.1.18"
   },
   "devDependencies": {
+    "@astrojs/ts-plugin": "^1.10.7",
     "typescript": "^5.9.3"
   }
 }

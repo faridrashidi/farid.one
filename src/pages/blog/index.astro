@@ -56,10 +56,10 @@ if (!siteFeatures.blogEnabled) {
                 <ul class="grid grid-flow-row gap-3">
                   {postsByYear[year].map((post) => (
                     <BlogPageListItem
-                        href={`/blog/${getBlogEntryPath(post.id)}`}
-                        title={post.data.title}
-                        date={post.data.publishedAt}
-                        language={post.data.language}
+                      href={`/blog/${getBlogEntryPath(post.id)}`}
+                      title={post.data.title}
+                      date={post.data.publishedAt}
+                      language={post.data.language}
                     />
                   ))}
                 </ul>
