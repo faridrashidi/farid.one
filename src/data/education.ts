@@ -11,7 +11,7 @@ export type EducationEntry = {
 export const education: EducationEntry[] = [
   {
     institution: "National Institutes of Health",
-    degree: "Predoctoral Partnerships Program",
+    degree: "NIH Graduate Partnership Program (GPP)",
     href: "https://www.nih.gov/",
     logoScale: "1.15",
     logoSrc: "https://images.farid.one/logo/nih.svg",
