@@ -14,7 +14,7 @@ export const education: EducationEntry[] = [
     degree: "NIH Graduate Partnership Program (GPP)",
     href: "https://www.nih.gov/",
     logoScale: "1.15",
-    logoSrc: "https://images.farid.one/logo/nih.svg",
+    logoSrc: "https://data.farid.one/logo/nih.svg",
   },
   {
     institution: "Indiana University",
@@ -22,20 +22,20 @@ export const education: EducationEntry[] = [
     href: "https://www.iu.edu/",
     logoOffsetY: "-3px",
     logoScale: "0.9",
-    logoSrc: "https://images.farid.one/logo/iu.svg",
+    logoSrc: "https://data.farid.one/logo/iu.svg",
   },
   {
     institution: "Sharif University of Technology",
     degree: "M.S. in Artificial Intelligence and Robotics",
     href: "https://www.sharif.ir/",
     markPadding: "0.22rem",
-    logoSrc: "https://images.farid.one/logo/sut.svg",
+    logoSrc: "https://data.farid.one/logo/sut.svg",
   },
   {
     institution: "Amirkabir University of Technology",
     degree: "B.S. in Software Engineering",
     href: "https://aut.ac.ir/",
     markPadding: "0.18rem",
-    logoSrc: "https://images.farid.one/logo/aut.svg",
+    logoSrc: "https://data.farid.one/logo/aut.svg",
   },
 ];
