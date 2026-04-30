@@ -32,15 +32,15 @@ const { alt, label, rotationClass, src } = Astro.props;
 
   .sport-polaroid:hover {
     box-shadow: 0 28px 55px -34px var(--color-shadow);
-    transform: translateY(-4px) rotate(0deg) !important;
+    transform: translateY(-4px);
   }
 
   .sport-polaroid--left {
-    transform: rotate(-2.5deg);
+    transform: none;
   }
 
   .sport-polaroid--right {
-    transform: rotate(1.75deg);
+    transform: none;
   }
 
   .sport-polaroid__image {
