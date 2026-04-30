@@ -6,7 +6,7 @@ export type NavigationLink = {
 export type SocialLink = {
   name: string;
   url: string;
-  icon: "github" | "email";
+  icon: "github" | "telegram" | "email";
 };
 
 export type BiographyPart =
@@ -46,6 +46,11 @@ export const footerLinks: SocialLink[] = [
     name: "GitHub",
     url: "https://github.com/faridrashidi",
     icon: "github",
+  },
+  {
+    name: "Telegram",
+    url: "https://t.me/FarNoID",
+    icon: "telegram",
   },
   {
     name: "Email",
