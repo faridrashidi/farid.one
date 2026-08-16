@@ -1,0 +1,33 @@
+---
+import { aboutContent } from "../../data/profile";
+import SectionTitle from "../SectionTitle.astro";
+
+const { fatherhood } = aboutContent;
+---
+
+<section>
+  <SectionTitle title="Fatherhood" />
+
+  <div class="space-y-5">
+    <p>{fatherhood.introduction}</p>
+
+    <p>
+      {fatherhood.recommendation.before}
+      <a
+        href={fatherhood.recommendation.href}
+        class="font-medium underline decoration-[var(--color-border-strong)] underline-offset-4 transition-colors hover:decoration-current"
+      >
+        <cite>{fatherhood.recommendation.title}</cite>
+      </a>
+      {fatherhood.recommendation.after}
+    </p>
+
+    <blockquote
+      class="border-l-2 border-[var(--color-border-strong)] pl-4 text-[var(--color-text-muted)]"
+    >
+      <p>{fatherhood.takeaway}</p>
+    </blockquote>
+
+    <p>{fatherhood.decision}</p>
+  </div>
+</section>
