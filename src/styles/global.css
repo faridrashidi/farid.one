@@ -62,7 +62,7 @@
     text-wrap: pretty;
   }
   ::selection {
-    background: color-mix(in srgb, var(--color-accent) 22%, transparent);
+    background: color-mix(in srgb, var(--color-text-muted) 22%, transparent);
   }
 }
 
