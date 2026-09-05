@@ -30,8 +30,6 @@ const pageTitle = title ? `${title} | ${siteConfig.title}` : siteConfig.title;
     <meta property="og:url" content={Astro.url.href} />
     <title>{pageTitle}</title>
     <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-YBF96JWNS4"
-    ></script>
     <script is:inline>
       window.dataLayer = window.dataLayer || [];
       function gtag() {
@@ -39,6 +37,21 @@ const pageTitle = title ? `${title} | ${siteConfig.title}` : siteConfig.title;
       }
       gtag("js", new Date());
       gtag("config", "G-YBF96JWNS4");
+
+      window.addEventListener("load", () => {
+        const loadAnalytics = () => {
+          const script = document.createElement("script");
+          script.async = true;
+          script.src = "https://www.googletagmanager.com/gtag/js?id=G-YBF96JWNS4";
+          document.head.append(script);
+        };
+
+        if ("requestIdleCallback" in window) {
+          window.requestIdleCallback(loadAnalytics, { timeout: 2000 });
+        } else {
+          loadAnalytics();
+        }
+      }, { once: true });
     </script>
     <script is:inline>
       const storageKey = "theme";
