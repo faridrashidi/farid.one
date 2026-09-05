@@ -8,6 +8,9 @@ export default defineConfig({
     collectionsBackwardsCompat: true,
   },
   site: "https://farid.one",
+  build: {
+    inlineStylesheets: "always",
+  },
   fonts: [
     {
       provider: fontProviders.google(),
@@ -22,7 +25,7 @@ export default defineConfig({
       cssVariable: "--font-vazirmatn",
       weights: ["100 900"],
       styles: ["normal"],
-      subsets: ["arabic", "latin"],
+      subsets: ["arabic"],
     },
   ],
   image: {
