@@ -33,11 +33,11 @@ const isRTL =
     {
       project.githubRepo && (
         <>
-          <p class="animate-pulse opacity-55" data-github-loading>
+          <p class="text-[var(--color-text-muted)]" data-github-loading>
             Loading GitHub...
           </p>
 
-          <div class="flex items-center gap-1" data-github-language hidden>
+          <div class="hidden items-center gap-1" data-github-language>
             <div
               class="h-2 w-2 rounded-full project-language-dot"
               data-github-language-dot
@@ -45,7 +45,7 @@ const isRTL =
             <span class="opacity-70" data-github-language-name />
           </div>
 
-          <div class="flex items-center gap-1" data-github-stars hidden>
+          <div class="hidden items-center gap-1" data-github-stars>
             <svg
               class="p-[1.5px] opacity-70"
               viewBox="0 0 16 16"

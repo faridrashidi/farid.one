@@ -1,4 +1,5 @@
 ---
+import { Image } from "astro:assets";
 import { navigationLinks, siteConfig } from "../data/profile";
 import ThemeSelector from "./ThemeSelector.astro";
 import Wrapper from "./Wrapper.astro";
@@ -30,12 +31,13 @@ const isActive = (href: string) =>
         class="grid grid-flow-col items-center overflow-hidden rounded-full"
         aria-label="Go to homepage"
       >
-        <img
+        <Image
           src={siteConfig.avatar}
           alt={siteConfig.title}
           class="rounded-full opacity-100"
-          width="32"
-          height="32"
+          width={32}
+          height={32}
+          densities={[1, 2]}
           loading="eager"
         />
       </a>

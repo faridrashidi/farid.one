@@ -28,7 +28,9 @@ const posts = siteFeatures.blogEnabled
 ---
 
 <Layout>
-  <Biography />
-  <Projects projects={curatedProjects} />
-  {siteFeatures.blogEnabled && <Posts posts={posts} />}
+  <main>
+    <Biography />
+    <Projects projects={curatedProjects} />
+    {siteFeatures.blogEnabled && <Posts posts={posts} />}
+  </main>
 </Layout>

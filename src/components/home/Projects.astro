@@ -76,7 +76,7 @@ const { projects } = Astro.props;
             getGitHubLanguageClassName(repository.language),
           );
           languageText.textContent = repository.language;
-          languageGroup.hidden = false;
+          languageGroup.classList.replace("hidden", "flex");
         }
 
         if (
@@ -84,7 +84,7 @@ const { projects } = Astro.props;
           starsText instanceof HTMLElement
         ) {
           starsText.textContent = repository.stars.toLocaleString("en-US");
-          starsGroup.hidden = false;
+          starsGroup.classList.replace("hidden", "flex");
         }
       }
     } catch (error) {
@@ -102,7 +102,6 @@ const { projects } = Astro.props;
         }
 
         loadingLabel.textContent = "GitHub stats unavailable";
-        loadingLabel.classList.remove("animate-pulse");
       }
     }
   };
