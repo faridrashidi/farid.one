@@ -62,3 +62,31 @@ const isRTL =
     }
   </div>
 </a>
+
+<style>
+  @layer components {
+    :where(.project-language-dot) {
+      display: inline-block;
+      height: 0.6rem;
+      width: 0.6rem;
+      border-radius: 999px;
+      background: #94a3b8;
+    }
+
+    :where(.project-language-dot--python) {
+      background: #3776ab;
+    }
+
+    :where(.project-language-dot--astro) {
+      background: #ff5d01;
+    }
+
+    :where(.project-language-dot--typescript) {
+      background: #3178c6;
+    }
+
+    :where(.project-language-dot--shell) {
+      background: #89e051;
+    }
+  }
+</style>
