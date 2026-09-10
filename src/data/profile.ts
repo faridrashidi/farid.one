@@ -1,8 +1,3 @@
-export type NavigationLink = {
-  href: string;
-  label: string;
-};
-
 export type SocialLink = {
   name: string;
   url: string;
@@ -20,25 +15,6 @@ export type BiographyPart =
       type: "link";
       value: string;
     };
-
-export const siteConfig = {
-  avatar: "https://cdn.farid.one/farid/profile.webp",
-  description:
-    "Farid Rashidi personal website | وبسایت شخصی فرید رشیدی",
-  headline: "Farid Rashidi | فرید رشیدی",
-  title: "Farid Rashidi",
-};
-
-export const siteFeatures = {
-  blogEnabled: false,
-  sportEnabled: true,
-  educationEnabled: true,
-};
-
-export const navigationLinks: NavigationLink[] = [
-  { href: "/about", label: "About" },
-  ...(siteFeatures.blogEnabled ? [{ href: "/blog", label: "Blog" }] : []),
-];
 
 export const footerLinks: SocialLink[] = [
   {
@@ -88,29 +64,4 @@ export const aboutContent = {
     "My work focuses on cancer research, where I develop tools, analyze data, and write and publish scientific publications.",
     "I love programming and building practical software, and I enjoy creating open-source projects.",
   ],
-  travel: {
-    homeCountry: "Iran",
-    intro: [
-      "I've been lucky enough to discover many countries around the world.",
-      "These are the ones that I visited.",
-    ],
-    visitedCountries: [
-      "United States",
-      "Iran",
-      "Bahrain",
-      "United Kingdom",
-      "Austria",
-      "Denmark",
-      "Sweden",
-      "Turkey",
-      "India",
-      "China",
-      "Russia",
-      "Armenia",
-      "United Arab Emirates",
-      "France",
-      "Qatar",
-      "Canada",
-    ],
-  },
 };

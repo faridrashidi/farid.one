@@ -1,0 +1,25 @@
+export const travelContent = {
+  homeCountry: "Iran",
+  intro: [
+    "I've been lucky enough to discover many countries around the world.",
+    "These are the ones that I visited.",
+  ],
+  visitedCountries: [
+    "United States",
+    "Iran",
+    "Bahrain",
+    "United Kingdom",
+    "Austria",
+    "Denmark",
+    "Sweden",
+    "Turkey",
+    "India",
+    "China",
+    "Russia",
+    "Armenia",
+    "United Arab Emirates",
+    "France",
+    "Qatar",
+    "Canada",
+  ],
+};

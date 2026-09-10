@@ -1,5 +1,5 @@
 ---
-import { aboutContent } from "../../data/profile";
+import { travelContent } from "../../data/travel";
 import SectionTitle from "../SectionTitle.astro";
 import TravelLabel from "./TravelLabel.astro";
 import TravelMap from "./TravelMap.astro";
@@ -12,7 +12,7 @@ import TravelMap from "./TravelMap.astro";
     class="mb-7 flex flex-col items-start justify-between sm:flex-row sm:space-x-8"
   >
     <div class="mb-3 space-y-1 sm:mb-0">
-      {aboutContent.travel.intro.map((line) => <p>{line}</p>)}
+      {travelContent.intro.map((line) => <p>{line}</p>)}
     </div>
 
     <div class="flex space-x-2">
@@ -22,7 +22,7 @@ import TravelMap from "./TravelMap.astro";
   </div>
 
   <TravelMap
-    homeCountry={aboutContent.travel.homeCountry}
-    visitedCountries={aboutContent.travel.visitedCountries}
+    homeCountry={travelContent.homeCountry}
+    visitedCountries={travelContent.visitedCountries}
   />
 </section>
