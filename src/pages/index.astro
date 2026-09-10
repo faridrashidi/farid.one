@@ -1,23 +1,17 @@
 ---
 // Load the global CSS layers before component styles.
 import Layout from "../layouts/Layout.astro";
-import { getCollection } from "astro:content";
-
 import Projects from "../components/home/Projects.astro";
 import Biography from "../components/home/Biography.astro";
 import Posts from "../components/home/Posts.astro";
 import { curatedProjects } from "../data/projects";
 import { siteFeatures } from "../config/site";
-import { getBlogEntryPath } from "../lib/blog";
+import { getBlogEntryPath, getSortedBlogPosts } from "../lib/blog";
 
 export const prerender = true;
 
 const posts = siteFeatures.blogEnabled
-  ? (await getCollection("blog"))
-      .sort(
-        (left, right) =>
-          right.data.publishedAt.getTime() - left.data.publishedAt.getTime(),
-      )
+  ? (await getSortedBlogPosts())
       .slice(0, 8)
       .map((post) => ({
         language: post.data.language,

@@ -1,21 +1,16 @@
 ---
-import { getCollection } from "astro:content";
-
 import ArchivePostItem from "../../components/blog/ArchivePostItem.astro";
 import YearHeading from "../../components/blog/YearHeading.astro";
 import PageTitle from "../../components/PageTitle.astro";
 import Wrapper from "../../components/Wrapper.astro";
 import { siteFeatures } from "../../config/site";
-import { getBlogEntryPath } from "../../lib/blog";
+import { getBlogEntryPath, getSortedBlogPosts } from "../../lib/blog";
 import Layout from "../../layouts/Layout.astro";
 
 export const prerender = true;
 
 const posts = siteFeatures.blogEnabled
-  ? (await getCollection("blog")).sort(
-      (left, right) =>
-        right.data.publishedAt.getTime() - left.data.publishedAt.getTime(),
-    )
+  ? await getSortedBlogPosts()
   : [];
 
 const postsByYear = posts.reduce<Record<string, typeof posts>>(
