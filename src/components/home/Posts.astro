@@ -1,7 +1,7 @@
 ---
 import SectionTitle from "../SectionTitle.astro";
 import Wrapper from "../Wrapper.astro";
-import BlogListItem from "../blog/BlogListItem.astro";
+import PostPreviewItem from "../blog/PostPreviewItem.astro";
 
 interface PostItem {
   language?: "en" | "fa";
@@ -24,7 +24,7 @@ const { posts } = Astro.props;
     <ul class="grid gap-3 sm:gap-1">
       {
         posts.map((post) => (
-          <BlogListItem
+          <PostPreviewItem
             href={`/blog/${post.slug}`}
             title={post.title}
             date={post.publishedAt}

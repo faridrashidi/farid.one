@@ -1,6 +1,6 @@
 ---
 import type { ProjectEntry } from "../../data/projects";
-import HomeProjectCard from "./HomeProjectCard.astro";
+import ProjectCard from "./ProjectCard.astro";
 import SectionTitle from "../SectionTitle.astro";
 import Wrapper from "../Wrapper.astro";
 
@@ -16,7 +16,7 @@ const { projects } = Astro.props;
     <SectionTitle title="Projects" />
 
     <div class="grid gap-5 sm:grid-cols-2 md:grid-cols-3">
-      {projects.map((project) => <HomeProjectCard project={project} />)}
+      {projects.map((project) => <ProjectCard project={project} />)}
     </div>
   </Wrapper>
 </section>

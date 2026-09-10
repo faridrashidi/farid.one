@@ -1,8 +1,8 @@
 ---
 import { getCollection } from "astro:content";
 
-import BlogPageListItem from "../../components/blog/BlogPageListItem.astro";
-import Year from "../../components/blog/Year.astro";
+import ArchivePostItem from "../../components/blog/ArchivePostItem.astro";
+import YearHeading from "../../components/blog/YearHeading.astro";
 import PageTitle from "../../components/PageTitle.astro";
 import Wrapper from "../../components/Wrapper.astro";
 import { siteFeatures } from "../../config/site";
@@ -51,11 +51,11 @@ if (!siteFeatures.blogEnabled) {
           <div class="grid gap-8">
             {years.map((year) => (
               <section>
-                <Year year={year} />
+                <YearHeading year={year} />
 
                 <ul class="grid grid-flow-row gap-3">
                   {postsByYear[year].map((post) => (
-                    <BlogPageListItem
+                    <ArchivePostItem
                       href={`/blog/${getBlogEntryPath(post.id)}`}
                       title={post.data.title}
                       date={post.data.publishedAt}
