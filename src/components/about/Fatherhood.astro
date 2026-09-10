@@ -1,8 +1,10 @@
 ---
-import { aboutContent } from "../../data/profile";
+import {
+  fatherhoodContent as fatherhood,
+  fatherhoodPhoto,
+} from "../../data/fatherhood";
 import SectionTitle from "../SectionTitle.astro";
-
-const { fatherhood } = aboutContent;
+import Polaroid from "./Polaroid.astro";
 ---
 
 <section>
@@ -29,5 +31,9 @@ const { fatherhood } = aboutContent;
     </blockquote>
 
     <p>{fatherhood.decision}</p>
+  </div>
+
+  <div class="mx-auto mt-8 w-full max-w-64">
+    <Polaroid {...fatherhoodPhoto} />
   </div>
 </section>

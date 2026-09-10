@@ -1,6 +1,5 @@
 ---
-import { aboutContent } from "../../data/profile";
-import { sportPhotos } from "../../data/sport";
+import { sportContent, sportPhotos } from "../../data/sport";
 import SectionTitle from "../SectionTitle.astro";
 import Polaroid from "./Polaroid.astro";
 ---
@@ -9,7 +8,7 @@ import Polaroid from "./Polaroid.astro";
   <SectionTitle title="Sport" />
 
   <div class="space-y-5">
-    {aboutContent.sport.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
+    {sportContent.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
   </div>
 
   <div class="sport-gallery">

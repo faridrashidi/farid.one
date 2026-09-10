@@ -1,16 +1,28 @@
 ---
 import type { SportPhotoEntry } from "../../data/sport";
 
-interface Props extends SportPhotoEntry {}
+interface Props extends Omit<SportPhotoEntry, "label" | "rotationClass"> {
+  label?: string;
+  rotationClass?: SportPhotoEntry["rotationClass"];
+  width?: number;
+  height?: number;
+}
 
-const { alt, label, rotationClass, src } = Astro.props;
+const { alt, label, rotationClass, src, width, height } = Astro.props;
 ---
 
 <figure class:list={["sport-polaroid", rotationClass]}>
   <div class="sport-polaroid__image">
-    <img src={src} alt={alt} loading="lazy" decoding="async" />
+    <img
+      src={src}
+      alt={alt}
+      width={width}
+      height={height}
+      loading="lazy"
+      decoding="async"
+    />
   </div>
-  <figcaption class="sport-polaroid__label">{label}</figcaption>
+  {label && <figcaption class="sport-polaroid__label">{label}</figcaption>}
 </figure>
 
 <style>
