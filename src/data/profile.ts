@@ -22,8 +22,7 @@ export type BiographyPart =
     };
 
 export const siteConfig = {
-  avatar:
-    "https://www.gravatar.com/avatar/42125cfaaf0a859652acd4832533745d?s=512",
+  avatar: "https://cdn.farid.one/farid/profile.webp",
   description:
     "Farid Rashidi personal website | وبسایت شخصی فرید رشیدی",
   headline: "Farid Rashidi | فرید رشیدی",

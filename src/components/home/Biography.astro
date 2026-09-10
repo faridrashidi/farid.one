@@ -1,5 +1,4 @@
 ---
-import { Image } from "astro:assets";
 import { biography, siteConfig } from "../../data/profile";
 import SocialIconLinks from "../SocialIconLinks.astro";
 import Wrapper from "../Wrapper.astro";
@@ -37,13 +36,12 @@ import Wrapper from "../Wrapper.astro";
         </div>
       </div>
 
-      <Image
+      <img
         src={siteConfig.avatar}
         alt={siteConfig.title}
         class="hidden h-44 w-44 transform-gpu rounded-full sm:block"
         width={176}
         height={176}
-        densities={[1, 2]}
         loading="eager"
         fetchpriority="high"
       />

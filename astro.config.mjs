@@ -29,15 +29,6 @@ export default defineConfig({
       subsets: ["arabic"],
     },
   ],
-  image: {
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "www.gravatar.com",
-        pathname: "/avatar/**",
-      },
-    ],
-  },
   vite: {
     plugins: [tailwindcss()],
   },
