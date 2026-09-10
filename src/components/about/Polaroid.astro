@@ -1,9 +1,9 @@
 ---
-import type { SportPhotoEntry } from "../../data/sport";
-
-interface Props extends Omit<SportPhotoEntry, "label" | "rotationClass"> {
+interface Props {
+  alt: string;
+  src: string;
   label?: string;
-  rotationClass?: SportPhotoEntry["rotationClass"];
+  rotationClass?: string;
   width?: number;
   height?: number;
 }
