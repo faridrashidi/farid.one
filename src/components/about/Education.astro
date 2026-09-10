@@ -54,13 +54,26 @@ import Polaroid from "./Polaroid.astro";
   </div>
 
   <div
-    class="mx-auto mt-8 grid max-w-64 items-start gap-6 sm:max-w-[33.5rem] sm:grid-cols-2"
+    class="education-gallery mx-auto mt-8 grid grid-cols-2 items-start gap-3 sm:max-w-[33.5rem] sm:gap-6"
   >
     {educationPhotos.map((photo) => <Polaroid {...photo} />)}
   </div>
 </section>
 
 <style>
+  @media (width < 640px) {
+    .education-gallery :global(.sport-polaroid) {
+      display: grid;
+      /* Size the caption column to the uncropped portrait, including its border. */
+      grid-template-columns: calc((100% - 2px) * 0.75 * 0.75 + 2px);
+      justify-content: end;
+    }
+
+    .education-gallery :global(.sport-polaroid:last-child) {
+      justify-content: start;
+    }
+  }
+
   .education-mark {
     display: grid;
     place-items: center;
