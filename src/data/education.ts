@@ -34,8 +34,25 @@ export const education: EducationEntry[] = [
   {
     institution: "Amirkabir University of Technology",
     degree: "B.S. in Software Engineering",
-    href: "https://aut.ac.ir/",
+    href: "https://aut.ac.ir/en",
     markPadding: "0.18rem",
     logoSrc: "https://cdn.farid.one/farid/logo_aut.svg",
+  },
+];
+
+export const educationPhotos = [
+  {
+    alt: "Illustrated graduation portrait holding an Indiana University diploma",
+    label: "Indiana University",
+    src: "https://cdn.farid.one/farid/graduation_iub.webp",
+    width: 768,
+    height: 1024,
+  },
+  {
+    alt: "Illustrated graduation portrait in a blue cap and gown",
+    label: "Sharif University",
+    src: "https://cdn.farid.one/farid/graduation_sut.webp",
+    width: 768,
+    height: 1024,
   },
 ];
