@@ -14,9 +14,17 @@ export const fatherhoodContent = {
     "After my son was born, one of the major decisions I made was to remain in academia rather than move into industry, so I could spend more time with him.",
 };
 
-export const fatherhoodPhoto = {
-  alt: "Illustration of a father kneeling in front of his child in a stroller",
-  src: "https://cdn.farid.one/farid/fatherhood.webp",
-  width: 1087,
-  height: 1447,
-};
+export const fatherhoodPhotos = [
+  {
+    alt: "Illustration of a father kneeling in front of his child in a stroller",
+    src: "https://cdn.farid.one/farid/fatherhood_1.webp",
+    width: 1087,
+    height: 1447,
+  },
+  {
+    alt: "Illustration of a father with his child",
+    src: "https://cdn.farid.one/farid/fatherhood_2.webp",
+    width: 1087,
+    height: 1447,
+  },
+];

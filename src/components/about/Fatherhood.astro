@@ -1,7 +1,7 @@
 ---
 import {
   fatherhoodContent as fatherhood,
-  fatherhoodPhoto,
+  fatherhoodPhotos,
 } from "../../data/fatherhood";
 import SectionTitle from "../SectionTitle.astro";
 import Polaroid from "./Polaroid.astro";
@@ -33,7 +33,24 @@ import Polaroid from "./Polaroid.astro";
     <p>{fatherhood.decision}</p>
   </div>
 
-  <div class="mx-auto mt-8 w-[calc((100%_-_0.75rem)/2)] sm:w-full sm:max-w-64">
-    <Polaroid {...fatherhoodPhoto} />
+  <div
+    class="fatherhood-gallery mx-auto mt-8 grid grid-cols-2 items-start gap-3 sm:max-w-[33.5rem] sm:gap-6"
+  >
+    {fatherhoodPhotos.map((photo) => <Polaroid {...photo} />)}
   </div>
 </section>
+
+<style>
+  @media (width < 640px) {
+    .fatherhood-gallery :global(.sport-polaroid) {
+      display: grid;
+      /* Size the caption column to the uncropped portrait, including its border. */
+      grid-template-columns: calc((100% - 2px) * 0.75 * 0.75 + 2px);
+      justify-content: end;
+    }
+
+    .fatherhood-gallery :global(.sport-polaroid:last-child) {
+      justify-content: start;
+    }
+  }
+</style>
