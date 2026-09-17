@@ -45,8 +45,12 @@ import Polaroid from "./Polaroid.astro";
     .fatherhood-gallery :global(.sport-polaroid) {
       display: grid;
       /* Size the caption column to the uncropped portrait, including its border. */
-      grid-template-columns: calc((100% - 2px) * 0.75 * 0.75 + 2px);
+      grid-template-columns: calc((100% - 2px) * 0.95 * 0.75 + 2px);
       justify-content: end;
+    }
+
+    .fatherhood-gallery :global(.sport-polaroid__image img) {
+      height: calc((100cqi - 2px) * 0.95);
     }
 
     .fatherhood-gallery :global(.sport-polaroid:last-child) {
